@@ -1,5 +1,11 @@
 # Live stream with AWS MediaLive and MediaStore
 GoLive - this is a boilerplate to live stream using AWS MediaLive and MediaStore.
+I use serverless framework to create the following AWS resources:
+- MediaLive Channel
+- MediaLive Input
+- MediaLive InputSecurityGroup
+- MediaStore Container
+- IAM Role
 
 ## Setup
 1. Make sure you have installed [serverless framework cli](https://www.serverless.com/framework/docs/getting-started/) - Required
@@ -10,7 +16,7 @@ GoLive - this is a boilerplate to live stream using AWS MediaLive and MediaStore
 
 ## Live Stream software configuration
 1. Get input's destination url using aws cli `aws medialive list-inputs` or by logging in to `aws.amazon.com` MediaLive -> Inputs -> Destination A
-1. Open a live streaming software(I use OBS for this example)
+1. Open a live streaming software(I use [OBS](https://obsproject.com/) in this example)
 1. In OBS, add a `Video Capture Device` object from in the `Sources` window
 1. Click on `Settings` and navigate to `Stream` section
 1. Select `Service` as `Custom`, `Server` as `rtmp://xxxxxxxx:yyyy/golive/`
