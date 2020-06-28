@@ -5,6 +5,6 @@ Resources:
       Name: GoLive
       Type: RTMP_PUSH
       Destinations: 
-        - StreamName: parent/child
+        - StreamName: golive/now
       InputSecurityGroups: 
         - !Select [6, !Split [":", !GetAtt [GoLiveInputSecurityGroup, Arn]]]

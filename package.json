@@ -1,5 +1,5 @@
 {
-  "name": "aws-node-live-stream",
+  "name": "golive",
   "version": "1.0.0",
   "description": "Go Live - Boilerplate to live stream using AWS MediaLive and MediaStore",
   "keywords": [
