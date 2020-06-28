@@ -1,5 +1,8 @@
 # Live stream with AWS MediaLive and MediaStore
+[![serverless](http://public.serverless.com/badges/v3.svg)](http://www.serverless.com)
+
 GoLive - this is a boilerplate to live stream using AWS MediaLive and MediaStore.
+
 I use serverless framework to create the following AWS resources:
 - MediaLive Channel
 - MediaLive Input
