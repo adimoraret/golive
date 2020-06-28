@@ -1,0 +1,45 @@
+Resources:
+  GoLiveContainer:    
+    Type: AWS::MediaStore::Container
+    Properties:
+      AccessLoggingEnabled: false
+      ContainerName: GoLive
+      CorsPolicy:      
+        - AllowedHeaders:
+            - "*"
+          AllowedMethods:
+            - GET
+            - HEAD
+          AllowedOrigins:
+            - "*"
+          MaxAgeSeconds: 3000
+      Policy: !Sub 
+        '{
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "MediaStoreFullAccess",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": "arn:aws:iam::${AWS::AccountId}:root"
+              },
+              "Action": "mediastore:*",
+              "Resource": "arn:aws:mediastore:${AWS::Region}:${AWS::AccountId}:container/GoLive/*",
+              "Condition": {
+                "Bool": {
+                  "aws:SecureTransport": "true"
+                }
+              }
+            },
+            {
+              "Sid": "PublicReadOverHttpOrHttps",
+              "Effect": "Allow",
+              "Principal": "*",
+              "Action": [
+                "mediastore:GetObject",
+                "mediastore:DescribeObject"
+              ],
+              "Resource": "arn:aws:mediastore:${AWS::Region}:${AWS::AccountId}:container/GoLive/*"
+            }
+          ]
+        }'

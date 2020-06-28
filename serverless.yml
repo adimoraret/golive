@@ -1,0 +1,19 @@
+service: golive
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: us-west-2
+  profile: adrian
+  variableSyntax: "\\${((?!AWS)[ ~:a-zA-Z0-9._@'\",\\-\\/\\(\\)]+?)}"
+
+package:
+  individually: true
+
+resources:
+  - ${file(resources/medialive/channels.yml)}
+  - ${file(resources/medialive/inputs.yml)}
+  - ${file(resources/medialive/inputsecuritygroups.yml)}
+  - ${file(resources/mediastore/containers.yml)}
+  - ${file(resources/iam/roles.yml)}
+

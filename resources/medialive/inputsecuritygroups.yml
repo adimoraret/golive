@@ -1,0 +1,6 @@
+Resources:
+  GoLiveInputSecurityGroup:    
+    Type: AWS::MediaLive::InputSecurityGroup
+    Properties:
+      WhitelistRules: 
+        - Cidr: 0.0.0.0/0

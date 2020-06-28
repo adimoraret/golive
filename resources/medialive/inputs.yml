@@ -1,0 +1,10 @@
+Resources:
+  GoLiveInput:    
+    Type: AWS::MediaLive::Input
+    Properties:
+      Name: GoLive
+      Type: RTMP_PUSH
+      Destinations: 
+        - StreamName: parent/child
+      InputSecurityGroups: 
+        - !Select [6, !Split [":", !GetAtt [GoLiveInputSecurityGroup, Arn]]]

@@ -1,0 +1,15 @@
+{
+  "name": "aws-node-live-stream",
+  "version": "1.0.0",
+  "description": "Go Live - Boilerplate to live stream using AWS MediaLive and MediaStore",
+  "keywords": [
+    "golive",
+    "node",
+    "serverless",
+    "aws",
+    "medialive",
+    "mediastore"
+  ],
+  "author": "Adrian Moraret <adrian.moraret@gmail.com>",
+  "license": "ISC"
+}

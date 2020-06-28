@@ -1,0 +1,148 @@
+Resources:
+  GoLiveChannel:    
+    Type: AWS::MediaLive::Channel
+    Properties:
+      Name: GoLive
+      ChannelClass: SINGLE_PIPELINE
+      Destinations: 
+        - Id: Live
+          Settings:
+            - Url: !Join ["", ["mediastoressl://", !Select [1, !Split ["//", !GetAtt [GoLiveContainer, Endpoint]]], "/mystreams", "/stream"]]
+      EncoderSettings:
+        AudioDescriptions:
+          - AudioSelectorName: Default
+            CodecSettings:
+              AacSettings:
+                InputType: NORMAL
+                Bitrate: 192000
+                CodingMode: CODING_MODE_2_0
+                RawFormat: NONE
+                Spec: MPEG4
+                Profile: LC
+                RateControlMode: CBR
+                SampleRate: 48000
+            AudioTypeControl: FOLLOW_INPUT
+            LanguageCodeControl: FOLLOW_INPUT
+            Name: Audio1
+        OutputGroups:
+          - OutputGroupSettings:
+              HlsGroupSettings:
+                AdMarkers: []
+                CaptionLanguageSetting: OMIT
+                CaptionLanguageMappings: []
+                HlsCdnSettings:
+                  HlsWebdavSettings:
+                    NumRetries: 10
+                    ConnectionRetryInterval: 1
+                    RestartDelay: 15
+                    FilecacheDuration: 300
+                    HttpTransferMode: NON_CHUNKED
+                InputLossAction: EMIT_OUTPUT
+                ManifestCompression: NONE
+                Destination:
+                  DestinationRefId: Live
+                IvInManifest: INCLUDE
+                IvSource: FOLLOWS_SEGMENT_NUMBER
+                ClientCache: ENABLED
+                TsFileMode: SEGMENTED_FILES
+                ManifestDurationFormat: INTEGER
+                SegmentationMode: USE_SEGMENT_DURATION
+                RedundantManifest: DISABLED
+                OutputSelection: MANIFESTS_AND_SEGMENTS
+                StreamInfResolution: INCLUDE
+                IFrameOnlyPlaylists: DISABLED
+                IndexNSegments: 10
+                ProgramDateTime: EXCLUDE
+                ProgramDateTimePeriod: 600
+                KeepSegments: 21
+                SegmentLength: 6
+                TimedMetadataId3Frame: PRIV
+                TimedMetadataId3Period: 10
+                HlsId3SegmentTagging: DISABLED
+                CodecSpecification: RFC_4281
+                DirectoryStructure: SINGLE_DIRECTORY
+                SegmentsPerSubdirectory: 10000
+                Mode: LIVE
+            Name: HD
+            Outputs:
+              - OutputSettings:
+                  HlsOutputSettings:
+                    NameModifier: _720p30
+                    HlsSettings:
+                      StandardHlsSettings:
+                        M3u8Settings:
+                          AudioFramesPerPes: 4
+                          AudioPids: 492-498
+                          EcmPid: '8182'
+                          NielsenId3Behavior: NO_PASSTHROUGH
+                          PcrControl: PCR_EVERY_PES_PACKET
+                          PmtPid: '480'
+                          ProgramNum: 1
+                          Scte35Pid: '500'
+                          Scte35Behavior: NO_PASSTHROUGH
+                          TimedMetadataPid: '502'
+                          TimedMetadataBehavior: NO_PASSTHROUGH
+                          VideoPid: '481'
+                        AudioRenditionSets: program_audio
+                    H265PackagingType: HVC1
+                VideoDescriptionName: Video1
+                AudioDescriptionNames:
+                  - Audio1
+                CaptionDescriptionNames: []
+        TimecodeConfig:
+          Source: EMBEDDED
+        VideoDescriptions:
+          - CodecSettings:
+              H264Settings:
+                AfdSignaling: NONE
+                ColorMetadata: INSERT
+                AdaptiveQuantization: HIGH
+                Bitrate: 3000000
+                EntropyEncoding: CABAC
+                FlickerAq: ENABLED
+                FramerateControl: SPECIFIED
+                FramerateNumerator: 30
+                FramerateDenominator: 1
+                GopBReference: ENABLED
+                GopClosedCadence: 1
+                GopNumBFrames: 5
+                GopSize: 60
+                GopSizeUnits: FRAMES
+                SubgopLength: FIXED
+                ScanType: PROGRESSIVE
+                Level: H264_LEVEL_AUTO
+                LookAheadRateControl: HIGH
+                MaxBitrate: 3500000
+                NumRefFrames: 3
+                ParControl: INITIALIZE_FROM_SOURCE
+                Profile: HIGH
+                RateControlMode: QVBR
+                QvbrQualityLevel: 9
+                Syntax: DEFAULT
+                SceneChangeDetect: ENABLED
+                Slices: 1
+                SpatialAq: ENABLED
+                TemporalAq: ENABLED
+                TimecodeInsertion: DISABLED
+            Height: 720
+            Name: Video1
+            RespondToAfd: NONE
+            Sharpness: 100
+            ScalingBehavior: STRETCH_TO_OUTPUT
+            Width: 1280
+      InputAttachments: 
+        - InputId:
+            !Select [6, !Split [":", !GetAtt [GoLiveInput, Arn]]]
+          InputAttachmentName: InputAttachmentName
+          InputSettings:
+            SourceEndBehavior: CONTINUE
+            InputFilter: AUTO
+            FilterStrength: 1
+            DeblockFilter: DISABLED
+            DenoiseFilter: DISABLED
+      InputSpecification: 
+        Codec: AVC
+        Resolution: HD
+        MaximumBitrate: MAX_20_MBPS
+      LogLevel: DISABLED
+      RoleArn: !GetAtt [GoLiveRole, Arn]
