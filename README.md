@@ -8,9 +8,9 @@ I use serverless framework to create the following AWS resources:
 - IAM Role
 
 ## Setup
-1. Make sure you have installed [serverless framework cli](https://www.serverless.com/framework/docs/getting-started/) - Required
-1. Configure [AWS credentials](https://www.serverless.com/framework/docs/providers/aws/cli-reference/config-credentials/): - Required
-1. Install [AWS cli](https://aws.amazon.com/cli/) - Optional
+1. Make sure you have installed [serverless framework cli](https://www.serverless.com/framework/docs/getting-started/)
+1. Configure [AWS credentials](https://www.serverless.com/framework/docs/providers/aws/cli-reference/config-credentials/)
+1. (Optional) Install [AWS cli](https://aws.amazon.com/cli/)
 1. Clone this repo
 1. Deploy from bash: `serverless deploy`
 
